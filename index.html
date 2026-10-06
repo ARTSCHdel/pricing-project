@@ -3,120 +3,398 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hello, pricing!</title>
+  <title>ReKrug IT | Refurbished laptops for organisations</title>
   <style>
     :root {
       color-scheme: light;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: #1d2939;
-      background: #f5f7fb;
+      color: #26332a;
+      background: #fff;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
     }
 
     * { box-sizing: border-box; }
 
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
-      min-height: 100vh;
-      padding: 48px 20px;
+      min-width: 320px;
+      font-size: 1rem;
+      line-height: 1.65;
     }
 
-    main {
-      width: min(100%, 960px);
-      margin: 0 auto;
+    a { color: inherit; }
+
+    .wrap {
+      width: min(100% - 40px, 1100px);
+      margin-inline: auto;
     }
 
-    header {
-      margin-bottom: 32px;
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-block: 16px;
+      border-bottom: 1px solid #e7ece8;
+    }
+
+    .brand {
+      color: #1B5E20;
+      font-size: 1.35rem;
+      font-weight: 750;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 4px;
+    }
+
+    nav a {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      padding: 0 10px;
+      border-radius: 6px;
+      color: #344238;
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
+
+    nav a:hover, nav a:focus-visible { color: #1B5E20; background: #f1f6f1; }
+
+    .hero {
+      padding-block: clamp(64px, 10vw, 112px);
       text-align: center;
     }
 
+    .hero-inner { max-width: 760px; margin-inline: auto; }
+
+    h1, h2, h3 { color: #1B5E20; line-height: 1.2; }
+
     h1 {
-      margin: 0 0 8px;
-      color: #182230;
-      font-size: clamp(2rem, 6vw, 2.8rem);
+      margin: 0 auto 20px;
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
       letter-spacing: -0.04em;
     }
 
-    header p { margin: 0; color: #667085; }
+    .hero p {
+      max-width: 660px;
+      margin: 0 auto 28px;
+      color: #4d5b50;
+      font-size: clamp(1.1rem, 2.4vw, 1.3rem);
+    }
 
-    .plans {
+    .button {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 22px;
+      border: 2px solid #1B5E20;
+      border-radius: 6px;
+      background: #1B5E20;
+      color: #fff;
+      font-weight: 650;
+      text-decoration: none;
+    }
+
+    .button:hover, .button:focus-visible { background: #144719; border-color: #144719; }
+
+    section.content-section {
+      padding-block: 64px;
+      border-top: 1px solid #e7ece8;
+    }
+
+    .section-heading {
+      max-width: 700px;
+      margin: 0 auto 32px;
+      text-align: center;
+    }
+
+    .section-heading h2, .pricing h2 {
+      margin: 0 0 12px;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      letter-spacing: -0.025em;
+    }
+
+    .section-heading p { margin: 0; color: #536056; }
+
+    .cards {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
+      gap: 20px;
     }
 
-    .plan {
+    .card {
       padding: 24px;
-      border: 1px solid #e4e7ec;
-      border-radius: 16px;
+      border: 1px solid #dfe7e0;
+      border-radius: 10px;
       background: #fff;
-      box-shadow: 0 8px 24px rgb(16 24 40 / 5%);
     }
 
-    .plan h2 { margin: 0 0 12px; font-size: 1.2rem; }
+    .card h3 { margin: 0 0 10px; font-size: 1.2rem; }
+    .card p { margin: 0; color: #4d5b50; }
 
-    .price {
-      margin: 0 0 20px;
-      color: #344054;
-      font-size: 1.8rem;
+    .steps { counter-reset: steps; }
+    .step { position: relative; padding-top: 58px; }
+    .step::before {
+      counter-increment: steps;
+      content: counter(steps);
+      position: absolute;
+      top: 20px;
+      left: 24px;
+      display: grid;
+      width: 26px;
+      height: 26px;
+      place-items: center;
+      border-radius: 50%;
+      background: #eaf3eb;
+      color: #1B5E20;
       font-weight: 700;
-      letter-spacing: -0.03em;
     }
 
-    .price span { color: #667085; font-size: 0.9rem; font-weight: 400; letter-spacing: 0; }
+    .pricing { min-height: 150px; text-align: center; }
+    .pricing h2 { margin: 0; }
 
-    ul { margin: 0; padding: 0; list-style: none; }
-    li { padding: 9px 0; border-top: 1px solid #f0f2f5; color: #475467; font-size: 0.95rem; }
-    li::before { content: "✓"; margin-right: 9px; color: #16845b; font-weight: 700; }
+    .faq-list { max-width: 800px; margin-inline: auto; }
+    .faq-item { padding: 20px 0; border-bottom: 1px solid #e7ece8; }
+    .faq-item:first-child { border-top: 1px solid #e7ece8; }
+    .faq-item h3 { margin: 0 0 6px; font-size: 1.1rem; }
+    .faq-item p { margin: 0; color: #4d5b50; }
 
-    .featured { border: 2px solid #6d5ce8; }
-    .featured h2 { color: #5746d8; }
+    .contact { text-align: center; }
+    .contact p { margin: 0; color: #4d5b50; }
+    .contact a { display: inline-block; min-height: 44px; padding-block: 8px; color: #1B5E20; font-weight: 650; }
 
-    @media (max-width: 680px) {
-      body { padding: 32px 16px; }
-      .plans { grid-template-columns: 1fr; gap: 14px; }
-      .plan { padding: 20px; }
+    footer {
+      padding-block: 22px;
+      border-top: 1px solid #e7ece8;
+      color: #566259;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      .site-header { align-items: flex-start; flex-direction: column; gap: 8px; }
+      nav { justify-content: flex-start; margin-inline: -8px; }
+      .cards { grid-template-columns: 1fr; }
+      section.content-section { padding-block: 48px; }
+    }
+
+    @media (max-width: 400px) {
+      .wrap { width: min(100% - 32px, 1100px); }
+      nav { gap: 0; }
+      nav a { padding-inline: 8px; }
+    }
+
+    @media (max-width: 600px) {
+      html, body { max-width: 100%; overflow-x: clip; }
+      .wrap { width: calc(100% - 32px); max-width: 100%; }
+      nav { width: 100%; justify-content: flex-start; flex-wrap: wrap; }
+      nav a { min-height: 44px; font-size: 1rem; }
+      .cards, #pricing .pricing-cards { grid-template-columns: minmax(0, 1fr); }
+      .card, #pricing .offer, #pricing .calculator { min-width: 0; }
+      p, li, label, select, input { font-size: 1rem; }
+      .pricing-notes, footer, #pricing .recommendation { font-size: 0.875rem; }
+      a.button, .contact a, #pricing .calculator select, #pricing .calculator input { min-height: 44px; }
+      h1, h2, h3, p, a, label, option { overflow-wrap: anywhere; }
     }
   </style>
 </head>
 <body>
-  <main>
-    <header>
-      <h1>Hello, pricing!</h1>
-      <p>Simple plans for your next big idea · by Arthur</p>
-    </header>
+  <header class="wrap site-header">
+    <a class="brand" href="#top">ReKrug IT</a>
+    <nav aria-label="Main menu">
+      <a href="#benefits">Benefits</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-    <section class="plans" aria-label="Monthly plans for NoteNest">
-      <article class="plan">
-        <h2>Free</h2>
-        <p class="price">0 € <span>/ month</span></p>
-        <ul>
-          <li>Up to 3 projects</li>
-          <li>Core planning tools</li>
-          <li>Community support</li>
-        </ul>
-      </article>
+  <main id="top">
+    <section class="wrap hero" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <h1 id="hero-title">Refurbished business laptops. Reliable IT. Lower environmental impact.</h1>
+        <p>ReKrug IT gives returned business laptops a second life through a predictable 24-month service with repairs included and an optional 24h Swap for organisations that need faster replacement.</p>
+        <a class="button" href="#pricing">Explore the service</a>
+      </div>
+    </section>
 
-      <article class="plan featured">
-        <h2>Basic</h2>
-        <p class="price">8 € <span>/ month</span></p>
-        <ul>
-          <li>Unlimited projects</li>
-          <li>Team collaboration</li>
-          <li>Email support</li>
-        </ul>
-      </article>
+    <section class="content-section" id="benefits">
+      <div class="wrap">
+        <div class="section-heading">
+          <h2>Benefits</h2>
+          <p>A practical laptop service designed for organisations that value dependable equipment and predictable costs.</p>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <h3>Give laptops a second life</h3>
+            <p>Professional refurbishment helps lower environmental impact by making returned business laptops useful again.</p>
+          </article>
+          <article class="card">
+            <h3>Predictable costs</h3>
+            <p>Repairs are included in the 24-month service, helping organisations plan their laptop costs.</p>
+          </article>
+          <article class="card">
+            <h3>Keep work moving</h3>
+            <p>Reliable refurbished laptops support business continuity, with an optional 24h Swap service for faster replacement.</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-      <article class="plan">
-        <h2>Pro</h2>
-        <p class="price">18 € <span>/ month</span></p>
-        <ul>
-          <li>Everything in Basic</li>
-          <li>Advanced reports</li>
-          <li>Priority support</li>
-        </ul>
-      </article>
+    <section class="content-section" id="how">
+      <div class="wrap">
+        <div class="section-heading">
+          <h2>How it works</h2>
+          <p>From returned equipment to a ready-to-use laptop service.</p>
+        </div>
+        <div class="cards steps">
+          <article class="card step">
+            <h3>We source</h3>
+            <p>We source returned business laptops.</p>
+          </article>
+          <article class="card step">
+            <h3>We refurbish and prepare</h3>
+            <p>We professionally refurbish and prepare the laptops, including certified data wiping.</p>
+          </article>
+          <article class="card step">
+            <h3>We provide the service</h3>
+            <p>We provide laptops to organisations through a 24-month service with repairs included.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section pricing" id="pricing">
+      <style>
+        #pricing .pricing-intro { max-width: 780px; margin: 0 auto 28px; color: #4d5b50; }
+        #pricing .pricing-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; text-align: left; }
+        #pricing .offer { display: flex; flex-direction: column; align-items: flex-start; padding: 24px; border: 1px solid #dfe7e0; border-radius: 10px; background: #fff; }
+        #pricing .offer.recommended { border: 2px solid #1B5E20; }
+        #pricing .offer h3 { margin: 0 0 12px; font-size: 1.2rem; }
+        #pricing .offer .price { margin: 0; color: #1B5E20; font-size: 1.65rem; font-weight: 750; line-height: 1.3; }
+        #pricing .offer .unit { margin: 2px 0 14px; color: #536056; }
+        #pricing .offer .customer { margin: 0 0 12px; font-weight: 650; }
+        #pricing .offer .details { margin: 0 0 22px; color: #4d5b50; }
+        #pricing .offer .button { margin-top: auto; }
+        #pricing .recommendation { display: inline-block; margin: 0 0 14px; padding: 3px 10px; border-radius: 999px; background: #eaf3eb; color: #1B5E20; font-size: 0.875rem; font-weight: 700; }
+        #pricing .pricing-notes { margin: 18px 0 0; color: #536056; font-size: 0.875rem; text-align: center; }
+        #pricing .calculator { max-width: 620px; margin: 40px auto 0; padding: 24px; border: 1px solid #dfe7e0; border-radius: 10px; text-align: left; }
+        #pricing .calculator h3 { margin: 0 0 8px; }
+        #pricing .calculator-note { margin: 0 0 20px; color: #536056; }
+        #pricing .calculator label { display: block; margin: 0 0 6px; font-weight: 650; }
+        #pricing .calculator select, #pricing .calculator input { width: 100%; min-height: 46px; margin: 0 0 16px; padding: 8px 12px; border: 1px solid #aab7ac; border-radius: 6px; background: #fff; color: #26332a; font: inherit; }
+        #pricing .calculator-result { margin: 0; color: #1B5E20; font-size: 1.1rem; font-weight: 700; }
+        @media (max-width: 760px) { #pricing .pricing-cards { grid-template-columns: 1fr; } }
+      </style>
+      <div class="wrap">
+        <h2>Pricing</h2>
+        <p class="pricing-intro">Choose the service level that matches your organisation's downtime risk and IT support needs, while benefiting from refurbished business laptops and a lower environmental impact.</p>
+        <div class="pricing-cards">
+          <article class="offer recommended">
+            <p class="recommendation">Recommended</p>
+            <h3>24h Swap</h3>
+            <p class="price">€27/user/month</p>
+            <p class="unit">per user per month</p>
+            <p class="customer">Small professional offices</p>
+            <p class="details">Refurbished business laptop, certified data wiping, repairs included, and replacement laptop on the next working day when a laptop needs to be replaced</p>
+            <a class="button" href="#contact">Choose 24h Swap</a>
+          </article>
+          <article class="offer">
+            <h3>Standard Repair</h3>
+            <p class="price">€19/user/month</p>
+            <p class="unit">per user per month</p>
+            <p class="customer">NGOs, schools and training centres</p>
+            <p class="details">Refurbished business laptop, certified data wiping, and repairs included with a repair time of up to 5 working days</p>
+            <a class="button" href="#contact">Choose Standard Repair</a>
+          </article>
+          <article class="offer">
+            <h3>Standard Repair</h3>
+            <p class="price">€17/user/month</p>
+            <p class="unit">per user per month</p>
+            <p class="customer">Medium-sized firms with an internal IT department</p>
+            <p class="details">Refurbished business laptop, certified data wiping, and repairs included with a repair time of up to 5 working days</p>
+            <a class="button" href="#contact">Choose Standard Repair</a>
+          </article>
+        </div>
+        <p class="pricing-notes">24-month contract; prices are charged per user per month; no discounts are specified in the case. Prices are shown per user per month; VAT treatment is not specified in the case.</p>
+        <div class="calculator">
+          <h3>Estimate your monthly price</h3>
+          <p class="calculator-note">This amount is an estimate based on the selected offer and number of users.</p>
+          <label for="calculator-offer">Organisation type</label>
+          <select id="calculator-offer">
+            <option value="27">Small professional office — 24h Swap — €27 per user per month</option>
+            <option value="19">NGO, school or training centre — Standard Repair — €19 per user per month</option>
+            <option value="17">Medium-sized firm with an internal IT department — Standard Repair — €17 per user per month</option>
+          </select>
+          <label for="calculator-users">Number of users</label>
+          <input id="calculator-users" type="number" min="0" step="1" inputmode="numeric" placeholder="Enter number of users">
+          <p class="calculator-result" aria-live="polite">Your estimated monthly price: <span id="calculator-result">Please enter a number</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="faq">
+      <div class="wrap">
+        <div class="section-heading"><h2>FAQ</h2></div>
+        <div class="faq-list">
+          <article class="faq-item">
+            <h3>What is included in the ReKrug IT service?</h3>
+            <p>Each service includes a refurbished business laptop, certified data wiping and repairs. The 24h Swap option additionally provides a replacement laptop on the next working day when a laptop needs to be replaced.</p>
+          </article>
+          <article class="faq-item">
+            <h3>How long is the service?</h3>
+            <p>The laptops are provided through a 24-month service.</p>
+          </article>
+          <article class="faq-item">
+            <h3>Are repairs included?</h3>
+            <p>Yes. Repairs are included in the service.</p>
+          </article>
+          <article class="faq-item">
+            <h3>What is the 24h Swap service?</h3>
+            <p>It is an optional service for organisations that need faster replacement.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section contact" id="contact">
+      <div class="wrap">
+        <div class="section-heading">
+          <h2>Contact</h2>
+          <p>Get in touch with ReKrug IT.</p>
+        </div>
+        <a href="mailto:hello@rekrug-it.example">hello@rekrug-it.example</a>
+      </div>
     </section>
   </main>
+
+  <footer>© 2026 ReKrug IT – student project, fictitious company</footer>
+  <script>
+    const offer = document.getElementById('calculator-offer');
+    const users = document.getElementById('calculator-users');
+    const result = document.getElementById('calculator-result');
+    function updateEstimate() {
+      const count = users.value.trim();
+      const amount = Number(count);
+      if (count === '' || !Number.isFinite(amount) || amount < 0) {
+        result.textContent = 'Please enter a number';
+        return;
+      }
+      result.textContent = `€${(Number(offer.value) * amount).toFixed(2)}`;
+    }
+    offer.addEventListener('change', updateEstimate);
+    users.addEventListener('input', updateEstimate);
+  </script>
 </body>
 </html>
